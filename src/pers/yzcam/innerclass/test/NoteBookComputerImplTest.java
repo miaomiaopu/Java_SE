@@ -1,6 +1,6 @@
 package pers.yzcam.innerclass.test;
 
-import pers.yzcam.innerclass.impl.NoteBookComputerImpl;
+import pers.yzcam.innerclass.interface_.impl.NoteBookComputerImpl;
 
 public class NoteBookComputerImplTest {
     public static void main(String[] args) {

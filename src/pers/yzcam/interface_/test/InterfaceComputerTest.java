@@ -1,6 +1,6 @@
 package pers.yzcam.interface_.test;
 
-import pers.yzcam.interface_.impl.ClockImpl;
+import pers.yzcam.interface_.interface_.impl.ClockImpl;
 import pers.yzcam.interface_.interface_.Computer;
 
 public class InterfaceComputerTest {

@@ -1,6 +1,6 @@
 package pers.yzcam.innerclass.test;
 
-import pers.yzcam.innerclass.impl.Staff;
+import pers.yzcam.innerclass.interface_.impl.Staff;
 import pers.yzcam.innerclass.interface_.Computer;
 
 public class StaffTest {

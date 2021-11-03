@@ -1,4 +1,4 @@
-package pers.yzcam.innerclass.impl;
+package pers.yzcam.innerclass.interface_.impl;
 
 import pers.yzcam.innerclass.interface_.Computer;
 

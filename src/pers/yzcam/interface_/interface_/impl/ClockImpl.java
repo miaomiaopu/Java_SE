@@ -1,4 +1,4 @@
-package pers.yzcam.interface_.impl;
+package pers.yzcam.interface_.interface_.impl;
 
 import pers.yzcam.interface_.interface_.Clock;
 
