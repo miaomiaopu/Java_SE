@@ -10,6 +10,6 @@ public class NoteBookComputerImplTest {
         cpu = noteBook.new Cpu();
         cpu.handleData();
 
-        noteBook.useComputer();
+        noteBook.useComputer(1.0, 2.0);
     }
 }

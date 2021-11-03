@@ -6,6 +6,9 @@ package pers.yzcam.innerclass.interface_;
 public interface Computer {
     /**
      * 使用电脑方法
+     *
+     * @param a 一个数字
+     * @param b 另一个数字
      */
-    void useComputer();
+    void useComputer(double a, double b);
 }
