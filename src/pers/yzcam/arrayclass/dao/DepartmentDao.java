@@ -42,4 +42,11 @@ public interface DepartmentDao {
      * @param day   日
      */
     void updateDepartmentCreateDateById(String id, Integer year, Integer month, Integer day);
+
+    /**
+     * 通过名称删除部门
+     *
+     * @param name 部门名称
+     */
+    void removeDepartmentByName(String name);
 }

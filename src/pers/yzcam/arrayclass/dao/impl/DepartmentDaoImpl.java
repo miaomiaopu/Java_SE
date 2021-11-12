@@ -66,4 +66,15 @@ public class DepartmentDaoImpl implements DepartmentDao {
             }
         }
     }
+
+    @Override
+    public void removeDepartmentByName(String name) {
+        List<Object> departmentList = DataBase.getDepartmentTable();
+        for (int i = 0; i < departmentList.size(); i++) {
+            if (((Department) departmentList.get(i)).getName().equals(name)) {
+                departmentList.remove(i);
+                break;
+            }
+        }
+    }
 }
