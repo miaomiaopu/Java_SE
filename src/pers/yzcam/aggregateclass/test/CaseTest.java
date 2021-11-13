@@ -1,14 +1,15 @@
-package pers.yzcam.arrayclass.test;
+package pers.yzcam.aggregateclass.test;
 
 import org.junit.jupiter.api.Test;
-import pers.yzcam.arrayclass.dao.DepartmentDao;
-import pers.yzcam.arrayclass.dao.impl.DepartmentDaoImpl;
-import pers.yzcam.arrayclass.entity.Department;
+import pers.yzcam.aggregateclass.dao.DepartmentDao;
+import pers.yzcam.aggregateclass.dao.EmployeeDao;
+import pers.yzcam.aggregateclass.dao.impl.DepartmentDaoImpl;
+import pers.yzcam.aggregateclass.dao.impl.EmployeeDaoImpl;
+import pers.yzcam.aggregateclass.entity.Department;
+import pers.yzcam.aggregateclass.entity.Employee;
 
 import java.text.SimpleDateFormat;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.Vector;
+import java.util.*;
 
 /**
  * @author cat
@@ -16,6 +17,7 @@ import java.util.Vector;
 public class CaseTest {
 
     DepartmentDao dao = new DepartmentDaoImpl();
+    EmployeeDao employeeDao = new EmployeeDaoImpl();
 
     @Test
     void departmentTableTest() {
@@ -60,7 +62,7 @@ public class CaseTest {
     @Test
     void listSortTest() {
         Vector<Object> departmentVector = dao.listDepartments();
-        class ComparatorImpl implements Comparator {
+        class ComparatorImpl implements Comparator<Object> {
 
             @Override
             public int compare(Object o1, Object o2) {
@@ -93,5 +95,72 @@ public class CaseTest {
                     department.getName() + "\t\t" +
                     new SimpleDateFormat("yyyy-MM-dd").format(department.getCreateDate()));
         }
+    }
+
+    @Test
+    void listEmployeeSetTest() {
+        Set<Object> employeeSet = employeeDao.listEmployeeSet();
+
+        Iterator<Object> iterator = employeeSet.iterator();
+        System.out.println("Id\t\tName\t\tMobilePhone\t\tBirth\t\tEntryDate\t\tDepartmentId");
+        while (iterator.hasNext()) {
+            Employee employee = (Employee) iterator.next();
+            System.out.println(employee.getId() + "\t\t" +
+                    employee.getName() + "\t\t" +
+                    employee.getMobilePhone() + "\t\t" +
+                    new SimpleDateFormat("yyyy-MM-dd").format(employee.getBirth()) + "\t\t" +
+                    new SimpleDateFormat("yyyy-MM-dd").format(employee.getEntryDate()) + "\t\t" +
+                    employee.getDepartmentId());
+        }
+    }
+
+    @Test
+    void createSetTest() {
+        int capacity = 4;
+        Set<Object> set = new HashSet<>(capacity, 16);
+        set.add("King");
+        set.add(null);
+        System.out.println(set.size());
+    }
+
+    @Test
+    void treeSetSortTest() {
+        TreeSet<Object> treeSet = new TreeSet<>();
+        treeSet.add(34);
+        treeSet.add(35);
+        treeSet.add(37);
+        treeSet.add(5);
+        treeSet.add(134);
+        for (Object o : treeSet) {
+            System.out.println(o);
+        }
+        Iterator<Object> iterator = treeSet.descendingIterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
+    }
+
+    @Test
+    void listEmployeeSetSortByEntryDateTest() {
+        TreeSet<Object> treeSet = employeeDao.listEmployeeSetSortByEntryDate();
+        for (Object o : treeSet) {
+            Employee employee = (Employee) o;
+            System.out.println(employee.getId() + "\t\t" + employee.getName() + "\t\t" +
+                    new SimpleDateFormat("yyyy-MM-dd").format(employee.getEntryDate()));
+        }
+    }
+
+    @Test
+    void linkedHashSetTest() {
+        LinkedHashSet<Object> linkedHashSet = new LinkedHashSet<>();
+        linkedHashSet.add(111);
+        linkedHashSet.add(121);
+        linkedHashSet.add(161);
+        linkedHashSet.add(311);
+        linkedHashSet.add(11);
+        for (Object o : linkedHashSet) {
+            System.out.println(o);
+        }
+
     }
 }

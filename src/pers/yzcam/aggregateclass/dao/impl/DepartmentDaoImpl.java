@@ -1,8 +1,8 @@
-package pers.yzcam.arrayclass.dao.impl;
+package pers.yzcam.aggregateclass.dao.impl;
 
-import pers.yzcam.arrayclass.dao.DepartmentDao;
-import pers.yzcam.arrayclass.db.DataBase;
-import pers.yzcam.arrayclass.entity.Department;
+import pers.yzcam.aggregateclass.dao.DepartmentDao;
+import pers.yzcam.aggregateclass.db.DataBase;
+import pers.yzcam.aggregateclass.entity.Department;
 
 import java.util.Calendar;
 import java.util.List;

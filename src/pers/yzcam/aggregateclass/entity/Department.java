@@ -1,4 +1,4 @@
-package pers.yzcam.arrayclass.entity;
+package pers.yzcam.aggregateclass.entity;
 
 import java.util.Date;
 

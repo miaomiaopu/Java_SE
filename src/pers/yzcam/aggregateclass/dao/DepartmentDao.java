@@ -1,6 +1,6 @@
-package pers.yzcam.arrayclass.dao;
+package pers.yzcam.aggregateclass.dao;
 
-import pers.yzcam.arrayclass.entity.Department;
+import pers.yzcam.aggregateclass.entity.Department;
 
 import java.util.Vector;
 
