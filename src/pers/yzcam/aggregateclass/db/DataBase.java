@@ -18,8 +18,22 @@ public final class DataBase {
      * 部门信息表
      */
     private static List<Object> departmentTable = new ArrayList<>();
-
+    /**
+     * 职员信息类
+     */
     private static Set<Object> employeeTable = new HashSet<>();
+    /**
+     * 系统角色表，使用 Map 封装属性信息
+     */
+    private static List<Object> roleMaps = new ArrayList<>();
+
+    public static List<Object> getRoleMaps() {
+        return roleMaps;
+    }
+
+    public static void setRoleMaps(List<Object> roleMaps) {
+        DataBase.roleMaps = roleMaps;
+    }
 
     static {
         Department department0 = new Department();
@@ -186,6 +200,35 @@ public final class DataBase {
         }
         employee7.setDepartmentId("DEP NO1004");
         employeeTable.add(employee7);
+
+        Map<String, Object> roleMap0 = new HashMap<>();
+        roleMap0.put("id", 10010);
+        roleMap0.put("roleName","普通");
+        roleMap0.put("status",0);
+        roleMap0.put("describe","普通系统用户");
+
+        Map<String, Object> roleMap1 = new HashMap<>();
+        roleMap1.put("id", 10020);
+        roleMap1.put("roleName","普管");
+        roleMap1.put("status",0);
+        roleMap1.put("describe","普通系统管理员");
+
+        Map<String, Object> roleMap2 = new HashMap<>();
+        roleMap2.put("id", 10030);
+        roleMap2.put("roleName","高管");
+        roleMap2.put("status",0);
+        roleMap2.put("describe","高级系统管理员");
+
+        Map<String, Object> roleMap3 = new HashMap<>();
+        roleMap3.put("id", 10040);
+        roleMap3.put("roleName","超管");
+        roleMap3.put("status",0);
+        roleMap3.put("describe","超级系统管理员");
+
+        roleMaps.add(roleMap0);
+        roleMaps.add(roleMap1);
+        roleMaps.add(roleMap2);
+        roleMaps.add(roleMap3);
     }
 
     public static List<Object> getDepartmentTable() {
