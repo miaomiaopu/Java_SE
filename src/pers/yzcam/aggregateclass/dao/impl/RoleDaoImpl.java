@@ -20,7 +20,6 @@ public class RoleDaoImpl implements RoleDao {
     public boolean addRole(Map<Object, Object> roleMap) {
         List<Object> roleList = DataBase.getRoleMaps();
         return roleList.add(roleMap);
-
     }
 
     @Override
