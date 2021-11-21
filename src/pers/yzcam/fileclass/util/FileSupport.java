@@ -1,8 +1,11 @@
 package pers.yzcam.fileclass.util;
 
+import pers.yzcam.fileclass.exception.NotDirectoryException;
+
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author cat
@@ -70,5 +73,68 @@ public class FileSupport {
         // bool =dir.mkdir(); /// 创建目录
         bool = dir.mkdirs();
         return bool;
+    }
+
+    /**
+     * 根据给定的路径计算包含的子文件数目，文件数目和子目录数目
+     *
+     * @param dirPath 目录路径
+     * @return Map (sumKey = 包含子文件数目; fileKey = 文件数目; dirKey = 子目录数目)
+     */
+    public static Map<String, Integer> countDirContainsFiles(String dirPath)
+            throws FileNotFoundException, NotDirectoryException {
+        Map<String, Integer> map = new HashMap<>(3);
+        File dir = new File(dirPath);
+        if (!dir.exists()) {
+            throw new FileNotFoundException("目录不存在");
+        }
+        if (dir.isDirectory()) {
+            File[] files = dir.listFiles();
+            Integer fileSum = 0;
+            Integer dirSum = 0;
+            for (File file : Objects.requireNonNull(files)) {
+                if (file.isFile()) {
+                    fileSum++;
+                } else {
+                    dirSum++;
+                }
+            }
+            map = new HashMap<>(3);
+            map.put("sumKey", fileSum + dirSum);
+            map.put("fileKey", fileSum);
+            map.put("dirKey", dirSum);
+            return map;
+        } else {
+            throw new NotDirectoryException("此路径不是一个目录路径");
+        }
+    }
+
+    /**
+     * 扫描目录，删除 exe 和 msi 文件，并且返回名称
+     *
+     * @param dir 目录对象
+     * @return (List)名称集合
+     */
+    public static List<String> scanningFolder(File dir)
+            throws FileNotFoundException, NotDirectoryException {
+        List<String> fileList = new ArrayList<>();
+        if (!dir.exists()) {
+            throw new FileNotFoundException("目录不存在");
+        }
+        if (dir.isFile()) {
+            throw new NotDirectoryException("目标对象不是有效目录");
+        }
+        File[] files = dir.listFiles();
+        for (File file : Objects.requireNonNull(files)) {
+            if (file.isFile()) {
+                String fileName = file.getName();
+                if (fileName.endsWith(".exe") || fileName.endsWith(".msi")) {
+                    if (file.delete()) {
+                        fileList.add(fileName);
+                    }
+                }
+            }
+        }
+        return fileList;
     }
 }
