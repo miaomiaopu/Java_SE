@@ -57,4 +57,11 @@ public class SupportTest {
         File target = new File("D:\\Java_Code\\Java_SE\\src\\pers\\yzcam\\io\\file\\info(1).ini");
         System.out.println(FileInAndOutSupport.copyFile(source, target));
     }
+
+    @Test
+    void copyTextFileTest() {
+        File source = new File("D:\\Java_Code\\Java_SE\\src\\pers\\yzcam\\io\\file\\info.ini");
+        File target = new File("D:\\Java_Code\\Java_SE\\src\\pers\\yzcam\\io\\file\\copy\\info.ini");
+        System.out.println(FileInAndOutSupport.copyTextFile(source, target));
+    }
 }

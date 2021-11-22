@@ -212,4 +212,44 @@ public class FileInAndOutSupport {
         }
         return length;
     }
+
+    /**
+     * 将文件内容复制到另一个文件中(用字符输入流)
+     *
+     * @param source 源文件
+     * @param target 目标文件
+     * @return 实际处理的字节数
+     */
+    public static long copyTextFile(File source, File target) {
+        long length = 0;
+        if (!target.exists()) {
+            String parent = target.getParent();
+            String name = target.getName();
+            File dir = new File(parent);
+            dir.mkdirs();
+            target = new File(dir.getAbsolutePath() + "/" + name);
+        }
+        if (source.exists()) {
+            try {
+                Reader reader = new FileReader(source);
+                BufferedReader bufferedReader = new BufferedReader(reader);
+                Writer writer = new FileWriter(target);
+                BufferedWriter bufferedWriter = new BufferedWriter(writer);
+                char[] chars = new char[1024];
+                int count;
+                while ((count = bufferedReader.read(chars, 0, chars.length)) != -1) {
+                    bufferedWriter.write(chars, 0, count);
+                    System.out.println("这次拷贝了 " + count + " 个字符");
+                    length += count;
+                }
+                bufferedWriter.close();
+                writer.close();
+                bufferedReader.close();
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return length;
+    }
 }
