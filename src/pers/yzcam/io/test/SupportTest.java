@@ -43,4 +43,18 @@ public class SupportTest {
             System.out.println(user.getId() + "\t" + user.getName() + "\t" + user.getGender() + "\t" + new SimpleDateFormat("yyyy-MM-dd").format(user.getBirth()) + "\t" + user.getAddress());
         }
     }
+
+    @Test
+    void saveContentToFileTest() {
+        String s = "yzcam\t" + "miaomiaopu\r" + "yzcam=miaomiaopu\n";
+        File file = new File("D:\\Java_Code\\Java_SE\\src\\pers\\yzcam\\io\\file\\myself.txt");
+        FileInAndOutSupport.saveContentToFile(s, file);
+    }
+
+    @Test
+    void copyFileTest() {
+        File source = new File("D:\\Java_Code\\Java_SE\\src\\pers\\yzcam\\io\\file\\info.ini");
+        File target = new File("D:\\Java_Code\\Java_SE\\src\\pers\\yzcam\\io\\file\\info(1).ini");
+        System.out.println(FileInAndOutSupport.copyFile(source, target));
+    }
 }

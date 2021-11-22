@@ -160,4 +160,56 @@ public class FileInAndOutSupport {
         }
         return userList;
     }
+
+    /**
+     * 将字符串保存到文件中
+     *
+     * @param content 源字符串
+     * @param target  目标文件
+     */
+    public static void saveContentToFile(String content, File target) {
+        if (target != null && target.exists()) {
+            byte[] bytes = content.getBytes();
+            try {
+                OutputStream outputStream = new FileOutputStream(target);
+                outputStream.write(bytes);
+                outputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 间文件内容复制到另一个文件中
+     *
+     * @param source 源文件
+     * @param target 目标文件
+     * @return 实际处理的字节数
+     */
+    public static long copyFile(File source, File target) {
+        long length = 0;
+        if (source.exists() && target.exists()) {
+            try {
+                InputStream inputStream = new FileInputStream(source);
+                OutputStream outputStream = new FileOutputStream(target);
+                BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
+                BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream);
+
+                byte[] bytes = new byte[1024 * 10];
+                int count;
+                while ((count = bufferedInputStream.read(bytes, 0, bytes.length)) != -1) {
+                    bufferedOutputStream.write(bytes, 0, count);
+                    length += count;
+                }
+                bufferedInputStream.close();
+                inputStream.close();
+                bufferedOutputStream.close();
+                outputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return length;
+    }
 }
