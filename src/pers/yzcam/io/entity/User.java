@@ -1,11 +1,16 @@
 package pers.yzcam.io.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * 实现 Serializable 接口的类是序列化类
+ *
  * @author cat
  */
-public class User {
+public class User implements Serializable {
+
+    private static String dec = "使用者";
     private String id;
     private String name;
     private String gender;
@@ -21,6 +26,14 @@ public class User {
         this.gender = gender;
         this.birth = birth;
         this.address = address;
+    }
+
+    public static String getDec() {
+        return dec;
+    }
+
+    public static void setDec(String dec) {
+        User.dec = dec;
     }
 
     public String getId() {

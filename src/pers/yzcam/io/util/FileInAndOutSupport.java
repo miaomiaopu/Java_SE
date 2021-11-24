@@ -6,7 +6,6 @@ import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -136,7 +135,7 @@ public class FileInAndOutSupport {
             try {
                 Reader reader = new FileReader(file);
                 BufferedReader bufferedReader = new BufferedReader(reader);
-                String lineStr = "";
+                String lineStr;
                 while ((lineStr = bufferedReader.readLine()) != null && !"".equals(lineStr)) {
                     User user = new User();
                     String[] strings = lineStr.split(" ");
@@ -226,8 +225,13 @@ public class FileInAndOutSupport {
             String parent = target.getParent();
             String name = target.getName();
             File dir = new File(parent);
-            dir.mkdirs();
+            boolean flag = dir.mkdirs();
             target = new File(dir.getAbsolutePath() + "/" + name);
+            if (flag) {
+                System.out.println("父目录创建成功");
+            } else {
+                System.out.println("父目录创建失败或者父目录已经存在");
+            }
         }
         if (source.exists()) {
             try {
@@ -251,5 +255,68 @@ public class FileInAndOutSupport {
             }
         }
         return length;
+    }
+
+    /**
+     * 序列化对象保存到目标文件中
+     *
+     * @param userList 对象列表
+     * @param file     目标文件
+     */
+    public static void serializableObject(List<User> userList, File file) {
+        if (!file.exists()) {
+            String parent = file.getParent();
+            String name = file.getName();
+            File dir = new File(parent);
+            boolean flag = dir.mkdirs();
+            file = new File(dir.getAbsolutePath() + "/" + name);
+        }
+        if (userList.size() != 0) {
+            try {
+                OutputStream outputStream = new FileOutputStream(file);
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+                for (User user : userList) {
+                    User.setDec("我是大学生");
+                    objectOutputStream.writeObject(user);
+                }
+                objectOutputStream.close();
+                outputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 反序列化操作读取目标文件中的对象
+     *
+     * @param file 源文件
+     * @return 目标对象列表
+     */
+    public static List<User> deserializationReader(File file) {
+        List<User> userList = new ArrayList<>();
+        if (file.exists()) {
+            try {
+                InputStream inputStream = new FileInputStream(file);
+                ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+                Object temp = null;
+                try {
+                    while ((temp = objectInputStream.readObject()) != null) {
+                        if (temp instanceof User) {
+                            userList.add((User) temp);
+                        }
+                    }
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                objectInputStream.close();
+                inputStream.close();
+            } catch (IOException e) {
+                if (!(e instanceof EOFException)) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return userList;
     }
 }

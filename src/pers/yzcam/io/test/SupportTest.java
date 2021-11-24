@@ -6,6 +6,8 @@ import pers.yzcam.io.util.FileInAndOutSupport;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -63,5 +65,26 @@ public class SupportTest {
         File source = new File("D:\\Java_Code\\Java_SE\\src\\pers\\yzcam\\io\\file\\info.ini");
         File target = new File("D:\\Java_Code\\Java_SE\\src\\pers\\yzcam\\io\\file\\copy\\info.ini");
         System.out.println(FileInAndOutSupport.copyTextFile(source, target));
+    }
+
+    @Test
+    void serializableObjectTest() {
+        File file = new File("D:\\Java_Code\\Java_SE\\src\\pers\\yzcam\\io\\file\\users.ser");
+
+        List<User> userList = new ArrayList<>();
+        userList.add(new User("Uid00001", "小刚", "男", new Date(), "北京"));
+        userList.add(new User("Uid00002", "小红", "女", new Date(), "上海"));
+        userList.add(new User("Uid00003", "小井", "女", new Date(), "湖北"));
+
+        FileInAndOutSupport.serializableObject(userList, file);
+    }
+
+    @Test
+    void deserializationReaderTest() {
+        File file = new File("D:\\Java_Code\\Java_SE\\src\\pers\\yzcam\\io\\file\\users.ser");
+        List<User> userList = FileInAndOutSupport.deserializationReader(file);
+        for (User user : userList) {
+            System.out.println(user.getId() + "\t" + user.getName() + "\t" + user.getGender() + "\t" + User.getDec());
+        }
     }
 }
