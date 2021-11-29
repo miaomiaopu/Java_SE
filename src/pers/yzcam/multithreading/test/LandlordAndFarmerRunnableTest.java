@@ -1,4 +1,4 @@
-package pers.yzcam.innerclass.test;
+package pers.yzcam.multithreading.test;
 
 import pers.yzcam.multithreading.thread.LandlordAndFarmerRunnable;
 
