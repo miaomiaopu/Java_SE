@@ -1,10 +1,7 @@
 package pers.yzcam.web.server;
 
 import java.io.IOException;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.UnknownHostException;
+import java.net.*;
 
 /**
  * Java 套接字网络通讯应用，服务器端
@@ -56,6 +53,24 @@ public class ServerSystem {
         }
         try {
             serverSocket = new ServerSocket(PORT, MAX_BACK_LOG, localhostIP);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 启动服务器套接字等待客户端请求
+     */
+    public void startAccept() {
+        try {
+            if (!serverSocket.isBound()) {
+                serverSocket.bind(new InetSocketAddress(PORT), MAX_BACK_LOG);
+            }
+            for (int i = 0; i < MAX_BACK_LOG; i++) {
+                System.out.println("等待连接");
+                Socket clientSocket = serverSocket.accept();
+                System.out.println("已连接");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

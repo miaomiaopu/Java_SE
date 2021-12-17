@@ -11,5 +11,8 @@ public class ServerSystemTest {
         System.out.println(serverSystem.getLocalhostIP().getHostAddress());
         System.out.println(serverSystem.getLocalhostIP().getHostName());
         System.out.println();
+
+        System.out.println(serverSystem.getLocalhostIP());
+        serverSystem.startAccept();
     }
 }
