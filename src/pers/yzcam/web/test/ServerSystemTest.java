@@ -12,6 +12,7 @@ public class ServerSystemTest {
         System.out.println(serverSystem.getLocalhostIP().getHostName());
         System.out.println();
 
+        // 测试服务器端套接字连接
         System.out.println(serverSystem.getLocalhostIP());
         serverSystem.startAccept();
     }
