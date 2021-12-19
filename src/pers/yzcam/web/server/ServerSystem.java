@@ -84,19 +84,18 @@ public class ServerSystem {
      */
     private void sendAndReverse() {
         Scanner scanner = new Scanner(System.in);
-        if (clientSocket.isConnected() && !clientSocket.isClosed()) {
-            // 循环读取用户输出
-            while (true) {
-                try {
+        while (true) {
+            try {
+                if (clientSocket.isConnected() && !clientSocket.isClosed()) {
                     // 读取用户信息
                     String message = dataInput.readUTF();
                     System.out.println("用户信息: " + message);
                     // 服务器回复的信息
                     String reverseMessage = scanner.next();
                     dataOutput.writeUTF(reverseMessage);
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
