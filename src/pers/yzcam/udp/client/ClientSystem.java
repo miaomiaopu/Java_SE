@@ -125,7 +125,7 @@ public class ClientSystem {
                 DatagramPacket returnPacket = new DatagramPacket(returnBytes, returnBytes.length);
                 tempSocket.receive(returnPacket);
                 System.out.println("返回的数据长度: " + returnPacket.getLength());
-                System.out.println("返回的数据: " + new String(returnPacket.getData(), returnPacket.getOffset(), returnPacket.getData().length));
+                System.out.println("返回的数据: " + new String(returnPacket.getData(), returnPacket.getOffset(), returnPacket.getLength()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
