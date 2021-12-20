@@ -103,30 +103,29 @@ public class ClientSystem {
      */
     public void clientSendAndReceive() {
         Scanner scanner = new Scanner(System.in);
-
-        while (true) {
         /*
-        用户构建数据
+        获取udp套接字对象并连接远程主机
          */
+        DatagramSocket tempSocket = initDatagramSocket();
+        connectRemoteServer(tempSocket);
+        while (true) {
+            /*
+            用户构建数据
+             */
             System.out.println("输入数据:");
             String message = scanner.next();
             byte[] bytes = message.getBytes();
             DatagramPacket tempPacket = initDatagramPacket(bytes);
-        /*
-        获取udp套接字对象并连接远程主机
-         */
-            DatagramSocket tempSocket = initDatagramSocket();
-            connectRemoteServer(tempSocket);
-        /*
-        发送数据和接收数据并处理
-         */
+            /*
+            发送数据和接收数据并处理
+             */
             try {
                 tempSocket.send(tempPacket);
                 byte[] returnBytes = new byte[1024];
                 DatagramPacket returnPacket = new DatagramPacket(returnBytes, returnBytes.length);
                 tempSocket.receive(returnPacket);
                 System.out.println("返回的数据长度: " + returnPacket.getLength());
-                System.out.println("返回的数据: " + new String(returnPacket.getData(), returnPacket.getOffset()));
+                System.out.println("返回的数据: " + new String(returnPacket.getData(), returnPacket.getOffset(), returnPacket.getData().length));
             } catch (IOException e) {
                 e.printStackTrace();
             }
